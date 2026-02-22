@@ -1,0 +1,383 @@
+{
+  "nav": {
+    "dashboard": "แดชบอร์ด",
+    "employees": "พนักงาน",
+    "departments": "แผนก",
+    "jobTitles": "ตำแหน่งงาน",
+    "orgChart": "ผังองค์กร",
+    "leave": "จัดการวันลา",
+    "overtime": "ล่วงเวลา",
+    "shifts": "กะการทำงาน",
+    "assets": "ทรัพย์สิน",
+    "performance": "ประเมินผลงาน",
+    "goals": "เป้าหมาย OKR",
+    "training": "ฝึกอบรม",
+    "recruitment": "สรรหาบุคลากร",
+    "expense": "เบิกค่าใช้จ่าย",
+    "payroll": "เงินเดือน",
+    "benefits": "สวัสดิการ",
+    "documents": "เอกสาร",
+    "announcements": "ประกาศ",
+    "surveys": "แบบสำรวจ",
+    "auditLog": "บันทึกกิจกรรม",
+    "notifications": "การแจ้งเตือน",
+    "exitChecklists": "รายการออกจากงาน",
+    "jobHistories": "ประวัติการทำงาน",
+    "settings": "ตั้งค่า",
+    "ess": "พอร์ทัลพนักงาน"
+  },
+  "common": {
+    "search": "ค้นหา...",
+    "add": "เพิ่มใหม่",
+    "edit": "แก้ไข",
+    "delete": "ลบ",
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "confirm": "ยืนยัน",
+    "close": "ปิด",
+    "status": "สถานะ",
+    "actions": "การดำเนินการ",
+    "total": "ทั้งหมด",
+    "loading": "กำลังโหลด...",
+    "noData": "ไม่มีข้อมูล",
+    "name": "ชื่อ",
+    "email": "อีเมล",
+    "phone": "เบอร์โทร",
+    "date": "วันที่",
+    "amount": "จำนวนเงิน",
+    "description": "คำอธิบาย",
+    "type": "ประเภท",
+    "category": "หมวดหมู่",
+    "all": "ทั้งหมด",
+    "active": "ใช้งาน",
+    "inactive": "ไม่ใช้งาน",
+    "yes": "ใช่",
+    "no": "ไม่",
+    "page": "หน้า",
+    "of": "จาก",
+    "rows": "รายการ",
+    "filter": "กรอง",
+    "reset": "รีเซ็ต",
+    "export": "ส่งออก",
+    "import": "นำเข้า",
+    "view": "ดู",
+    "details": "รายละเอียด",
+    "createdAt": "วันที่สร้าง",
+    "updatedAt": "วันที่แก้ไข"
+  },
+  "auth": {
+    "login": "เข้าสู่ระบบ",
+    "logout": "ออกจากระบบ",
+    "register": "สมัครสมาชิก",
+    "username": "ชื่อผู้ใช้",
+    "password": "รหัสผ่าน",
+    "email": "อีเมล",
+    "welcome": "ยินดีต้อนรับ",
+    "subtitle": "เข้าสู่ระบบจัดการทรัพยากรบุคคล",
+    "loginSuccess": "เข้าสู่ระบบสำเร็จ",
+    "loginFailed": "เข้าสู่ระบบล้มเหลว",
+    "logoutSuccess": "ออกจากระบบสำเร็จ",
+    "invalidCredentials": "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
+    "accessDenied": "ไม่มีสิทธิ์เข้าถึง",
+    "sessionExpired": "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่",
+    "profile": "โปรไฟล์",
+    "role": "บทบาท",
+    "signIn": "เข้าสู่ระบบ",
+    "createAccount": "สร้างบัญชี",
+    "alreadyHaveAccount": "มีบัญชีอยู่แล้ว?",
+    "dontHaveAccount": "ยังไม่มีบัญชี?"
+  },
+  "dashboard": {
+    "title": "แดชบอร์ด",
+    "subtitle": "ภาพรวม HR Analytics",
+    "totalEmployees": "พนักงานทั้งหมด",
+    "activeEmployees": "พนักงานที่ใช้งาน",
+    "departments": "แผนก",
+    "turnoverRate": "อัตราการลาออก",
+    "pendingLeave": "วันลาที่รอดำเนินการ",
+    "pendingExpense": "ค่าใช้จ่ายที่รอดำเนินการ",
+    "totalAssets": "ทรัพย์สินทั้งหมด",
+    "deptDistribution": "การกระจายตามแผนก",
+    "leaveStatistics": "สถิติการลา",
+    "recentAnnouncements": "ประกาศล่าสุด",
+    "quickActions": "การดำเนินการด่วน"
+  },
+  "employees": {
+    "title": "พนักงาน",
+    "add": "เพิ่มพนักงาน",
+    "edit": "แก้ไขพนักงาน",
+    "firstName": "ชื่อ",
+    "lastName": "นามสกุล",
+    "department": "แผนก",
+    "jobTitle": "ตำแหน่ง",
+    "baseSalary": "เงินเดือนพื้นฐาน",
+    "idCard": "เลขบัตรประชาชน",
+    "isActive": "สถานะการทำงาน",
+    "manager": "ผู้บังคับบัญชา",
+    "hireDate": "วันที่เริ่มงาน"
+  },
+  "departments": {
+    "title": "แผนก",
+    "add": "เพิ่มแผนก",
+    "edit": "แก้ไขแผนก",
+    "name": "ชื่อแผนก",
+    "employeeCount": "จำนวนพนักงาน"
+  },
+  "jobTitles": {
+    "title": "ตำแหน่งงาน",
+    "add": "เพิ่มตำแหน่ง",
+    "edit": "แก้ไขตำแหน่ง",
+    "name": "ชื่อตำแหน่ง",
+    "employeeCount": "จำนวนพนักงาน"
+  },
+  "leaveRequests": {
+    "title": "จัดการวันลา",
+    "add": "ขอลา",
+    "leaveType": "ประเภทการลา",
+    "startDate": "วันที่เริ่มลา",
+    "endDate": "วันที่สิ้นสุด",
+    "reason": "เหตุผล",
+    "approve": "อนุมัติ",
+    "reject": "ปฏิเสธ",
+    "types": {
+      "ANNUAL": "ลาพักร้อน",
+      "SICK": "ลาป่วย",
+      "PERSONAL": "ลากิจ",
+      "MATERNITY": "ลาคลอด",
+      "OTHER": "อื่นๆ"
+    },
+    "status": {
+      "PENDING": "รอดำเนินการ",
+      "APPROVED": "อนุมัติแล้ว",
+      "REJECTED": "ปฏิเสธแล้ว"
+    }
+  },
+  "assets": {
+    "title": "ทรัพย์สิน",
+    "add": "เพิ่มทรัพย์สิน",
+    "assetName": "ชื่อทรัพย์สิน",
+    "assetType": "ประเภท",
+    "serialNumber": "หมายเลขซีเรียล",
+    "assignedTo": "มอบหมายให้",
+    "status": {
+      "AVAILABLE": "ว่าง",
+      "ASSIGNED": "มอบหมายแล้ว",
+      "RETIRED": "เลิกใช้งาน"
+    }
+  },
+  "expenseClaims": {
+    "title": "เบิกค่าใช้จ่าย",
+    "add": "ยื่นเรื่องเบิก",
+    "claimTitle": "หัวข้อ",
+    "amount": "จำนวนเงิน",
+    "category": "หมวดหมู่",
+    "approve": "อนุมัติ",
+    "reject": "ปฏิเสธ",
+    "status": {
+      "PENDING": "รอดำเนินการ",
+      "APPROVED": "อนุมัติแล้ว",
+      "REJECTED": "ปฏิเสธแล้ว"
+    }
+  },
+  "payroll": {
+    "title": "เงินเดือน",
+    "add": "สร้างรอบเงินเดือน",
+    "month": "เดือน",
+    "year": "ปี",
+    "process": "ประมวลผล",
+    "complete": "เสร็จสิ้น",
+    "status": {
+      "DRAFT": "ร่าง",
+      "PROCESSING": "กำลังประมวลผล",
+      "COMPLETED": "เสร็จสิ้น"
+    }
+  },
+  "notifications": {
+    "title": "การแจ้งเตือน",
+    "markAllRead": "อ่านทั้งหมด",
+    "noNotifications": "ไม่มีการแจ้งเตือน",
+    "unread": "ยังไม่ได้อ่าน"
+  },
+  "overtime": {
+    "title": "ล่วงเวลา",
+    "request": "ขอทำงานล่วงเวลา",
+    "clockIn": "บันทึกเวลาเข้า",
+    "clockOut": "บันทึกเวลาออก",
+    "hours": "ชั่วโมง",
+    "date": "วันที่",
+    "reason": "เหตุผล",
+    "approve": "อนุมัติ",
+    "reject": "ปฏิเสธ",
+    "timesheet": "ตารางเวลา"
+  },
+  "recruitment": {
+    "title": "สรรหาบุคลากร",
+    "addPosting": "เพิ่มประกาศรับสมัคร",
+    "jobTitle": "ตำแหน่งงาน",
+    "location": "สถานที่",
+    "salaryRange": "ช่วงเงินเดือน",
+    "applicants": "ผู้สมัคร",
+    "stage": {
+      "APPLIED": "สมัครแล้ว",
+      "SCREENING": "คัดกรอง",
+      "INTERVIEW": "สัมภาษณ์",
+      "OFFER": "เสนองาน",
+      "HIRED": "รับเข้าทำงาน",
+      "REJECTED": "ปฏิเสธ"
+    }
+  },
+  "training": {
+    "title": "ฝึกอบรม",
+    "addCourse": "เพิ่มหลักสูตร",
+    "courseTitle": "ชื่อหลักสูตร",
+    "instructor": "วิทยากร",
+    "capacity": "ความจุ",
+    "enrollments": "ผู้ลงทะเบียน",
+    "enroll": "ลงทะเบียน"
+  },
+  "goals": {
+    "title": "เป้าหมาย OKR",
+    "add": "เพิ่มเป้าหมาย",
+    "period": "ช่วงเวลา",
+    "progress": "ความคืบหน้า",
+    "keyResults": "ผลลัพธ์หลัก",
+    "target": "เป้าหมาย",
+    "current": "ปัจจุบัน"
+  },
+  "announcements": {
+    "title": "ประกาศ",
+    "add": "เพิ่มประกาศ",
+    "content": "เนื้อหา",
+    "priority": "ความสำคัญ",
+    "pin": "ปักหมุด",
+    "archive": "เก็บถาวร",
+    "priorities": {
+      "LOW": "ต่ำ",
+      "MEDIUM": "ปานกลาง",
+      "HIGH": "สูง",
+      "URGENT": "เร่งด่วน"
+    }
+  },
+  "documents": {
+    "title": "เอกสาร",
+    "add": "เพิ่มเอกสาร",
+    "category": "หมวดหมู่",
+    "fileUrl": "ลิงก์ไฟล์",
+    "expiryDate": "วันหมดอายุ"
+  },
+  "benefits": {
+    "title": "สวัสดิการ",
+    "addPlan": "เพิ่มแผนสวัสดิการ",
+    "planName": "ชื่อแผน",
+    "type": "ประเภท",
+    "enroll": "ลงทะเบียน",
+    "unenroll": "ยกเลิกการลงทะเบียน"
+  },
+  "shifts": {
+    "title": "กะการทำงาน",
+    "add": "เพิ่มกะ",
+    "shiftName": "ชื่อกะ",
+    "startTime": "เวลาเริ่ม",
+    "endTime": "เวลาสิ้นสุด",
+    "assign": "มอบหมายกะ",
+    "schedule": "ตารางกะ"
+  },
+  "auditLog": {
+    "title": "บันทึกกิจกรรม",
+    "user": "ผู้ใช้",
+    "action": "การดำเนินการ",
+    "entity": "ออบเจ็กต์",
+    "timestamp": "เวลา"
+  },
+  "surveys": {
+    "title": "แบบสำรวจ",
+    "add": "สร้างแบบสำรวจ",
+    "active": "กำลังดำเนินการ",
+    "results": "ผลลัพธ์",
+    "questions": "คำถาม",
+    "responses": "คำตอบ",
+    "submit": "ส่งคำตอบ",
+    "answerPlaceholder": "พิมพ์คำตอบ...",
+    "selectRating": "เลือกคะแนน",
+    "noQuestions": "ไม่มีคำถาม",
+    "noResults": "ยังไม่มีผลลัพธ์",
+    "totalResponses": "จำนวนผู้ตอบทั้งหมด"
+  },
+  "performance": {
+    "title": "ประเมินผลงาน",
+    "add": "เพิ่มการประเมิน",
+    "reviewer": "ผู้ประเมิน",
+    "period": "ช่วงเวลา",
+    "score": "คะแนน",
+    "comments": "ความคิดเห็น"
+  },
+  "exitChecklists": {
+    "title": "รายการออกจากงาน",
+    "generate": "สร้างรายการ",
+    "task": "งาน",
+    "completed": "เสร็จสิ้น"
+  },
+  "jobHistories": {
+    "title": "ประวัติการทำงาน",
+    "add": "เพิ่มประวัติ",
+    "changeType": "ประเภทการเปลี่ยนแปลง",
+    "effectiveDate": "วันที่มีผล"
+  },
+  "settings": {
+    "title": "ตั้งค่า",
+    "profile": "โปรไฟล์",
+    "appearance": "การแสดงผล",
+    "security": "ความปลอดภัย",
+    "language": "ภาษา",
+    "darkMode": "โหมดมืด",
+    "changePassword": "เปลี่ยนรหัสผ่าน",
+    "twoFactor": "การยืนยันตัวตนสองขั้นตอน",
+    "logout": "ออกจากระบบ"
+  },
+  "status": {
+    "PENDING": "รอดำเนินการ",
+    "APPROVED": "อนุมัติแล้ว",
+    "REJECTED": "ปฏิเสธแล้ว",
+    "ACTIVE": "ใช้งาน",
+    "INACTIVE": "ไม่ใช้งาน",
+    "DRAFT": "ร่าง",
+    "PROCESSING": "กำลังประมวลผล",
+    "COMPLETED": "เสร็จสิ้น",
+    "AVAILABLE": "ว่าง",
+    "ASSIGNED": "มอบหมายแล้ว",
+    "RETIRED": "เลิกใช้งาน",
+    "OPEN": "เปิด",
+    "CLOSED": "ปิด",
+    "HIRED": "รับเข้าทำงาน",
+    "ON_HOLD": "พักไว้",
+    "ENROLLED": "ลงทะเบียนแล้ว",
+    "APPLIED": "สมัครแล้ว",
+    "SCREENING": "คัดกรอง",
+    "INTERVIEW": "สัมภาษณ์",
+    "OFFER": "เสนองาน",
+    "HIGH": "สูง",
+    "URGENT": "เร่งด่วน",
+    "NORMAL": "ปกติ",
+    "LOW": "ต่ำ",
+    "MEDIUM": "ปานกลาง"
+  },
+  "ess": {
+    "title": "พอร์ทัลพนักงาน",
+    "greeting": "สวัสดี",
+    "myLeave": "การลาของฉัน",
+    "myExpenses": "ค่าใช้จ่ายของฉัน",
+    "noLeave": "ไม่มีประวัติการลา",
+    "noExpenses": "ไม่มีประวัติค่าใช้จ่าย",
+    "viewAll": "ดูทั้งหมด",
+    "pendingLeave": "วันลาที่รอ",
+    "pendingExpense": "ค่าใช้จ่ายที่รอ",
+    "approvedLeave": "วันลาที่อนุมัติ",
+    "leaveSubmitted": "ส่งคำขอลาแล้ว",
+    "expenseSubmitted": "ส่งคำขอเบิกแล้ว",
+    "expensePlaceholder": "เช่น ค่าเดินทางไปประชุม"
+  },
+  "orgChart": {
+    "title": "ผังองค์กร",
+    "noData": "ไม่มีข้อมูลผังองค์กร"
+  }
+}

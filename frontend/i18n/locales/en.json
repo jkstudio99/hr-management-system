@@ -1,0 +1,383 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "employees": "Employees",
+    "departments": "Departments",
+    "jobTitles": "Job Titles",
+    "orgChart": "Org Chart",
+    "leave": "Leave Requests",
+    "overtime": "Overtime",
+    "shifts": "Shifts",
+    "assets": "Assets",
+    "performance": "Performance",
+    "goals": "Goals (OKR)",
+    "training": "Training",
+    "recruitment": "Recruitment",
+    "expense": "Expense Claims",
+    "payroll": "Payroll",
+    "benefits": "Benefits",
+    "documents": "Documents",
+    "announcements": "Announcements",
+    "surveys": "Surveys",
+    "auditLog": "Audit Log",
+    "notifications": "Notifications",
+    "exitChecklists": "Exit Checklists",
+    "jobHistories": "Job Histories",
+    "settings": "Settings",
+    "ess": "My Portal"
+  },
+  "common": {
+    "search": "Search...",
+    "add": "Add New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "status": "Status",
+    "actions": "Actions",
+    "total": "Total",
+    "loading": "Loading...",
+    "noData": "No data available",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "date": "Date",
+    "amount": "Amount",
+    "description": "Description",
+    "type": "Type",
+    "category": "Category",
+    "all": "All",
+    "active": "Active",
+    "inactive": "Inactive",
+    "yes": "Yes",
+    "no": "No",
+    "page": "Page",
+    "of": "of",
+    "rows": "rows",
+    "filter": "Filter",
+    "reset": "Reset",
+    "export": "Export",
+    "import": "Import",
+    "view": "View",
+    "details": "Details",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
+  },
+  "auth": {
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "register": "Register",
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "welcome": "Welcome Back",
+    "subtitle": "Sign in to HR Management System",
+    "loginSuccess": "Login successful",
+    "loginFailed": "Login failed",
+    "logoutSuccess": "Logged out successfully",
+    "invalidCredentials": "Invalid username or password",
+    "accessDenied": "Access denied",
+    "sessionExpired": "Session expired. Please sign in again.",
+    "profile": "Profile",
+    "role": "Role",
+    "signIn": "Sign In",
+    "createAccount": "Create Account",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "HR Analytics Overview",
+    "totalEmployees": "Total Employees",
+    "activeEmployees": "Active Employees",
+    "departments": "Departments",
+    "turnoverRate": "Turnover Rate",
+    "pendingLeave": "Pending Leave",
+    "pendingExpense": "Pending Expenses",
+    "totalAssets": "Total Assets",
+    "deptDistribution": "Department Distribution",
+    "leaveStatistics": "Leave Statistics",
+    "recentAnnouncements": "Recent Announcements",
+    "quickActions": "Quick Actions"
+  },
+  "employees": {
+    "title": "Employees",
+    "add": "Add Employee",
+    "edit": "Edit Employee",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "department": "Department",
+    "jobTitle": "Job Title",
+    "baseSalary": "Base Salary",
+    "idCard": "ID Card",
+    "isActive": "Active Status",
+    "manager": "Manager",
+    "hireDate": "Hire Date"
+  },
+  "departments": {
+    "title": "Departments",
+    "add": "Add Department",
+    "edit": "Edit Department",
+    "name": "Department Name",
+    "employeeCount": "Employee Count"
+  },
+  "jobTitles": {
+    "title": "Job Titles",
+    "add": "Add Job Title",
+    "edit": "Edit Job Title",
+    "name": "Title Name",
+    "employeeCount": "Employee Count"
+  },
+  "leaveRequests": {
+    "title": "Leave Requests",
+    "add": "Request Leave",
+    "leaveType": "Leave Type",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "reason": "Reason",
+    "approve": "Approve",
+    "reject": "Reject",
+    "types": {
+      "ANNUAL": "Annual Leave",
+      "SICK": "Sick Leave",
+      "PERSONAL": "Personal Leave",
+      "MATERNITY": "Maternity Leave",
+      "OTHER": "Other"
+    },
+    "status": {
+      "PENDING": "Pending",
+      "APPROVED": "Approved",
+      "REJECTED": "Rejected"
+    }
+  },
+  "assets": {
+    "title": "Assets",
+    "add": "Add Asset",
+    "assetName": "Asset Name",
+    "assetType": "Asset Type",
+    "serialNumber": "Serial Number",
+    "assignedTo": "Assigned To",
+    "status": {
+      "AVAILABLE": "Available",
+      "ASSIGNED": "Assigned",
+      "RETIRED": "Retired"
+    }
+  },
+  "expenseClaims": {
+    "title": "Expense Claims",
+    "add": "Submit Claim",
+    "claimTitle": "Title",
+    "amount": "Amount",
+    "category": "Category",
+    "approve": "Approve",
+    "reject": "Reject",
+    "status": {
+      "PENDING": "Pending",
+      "APPROVED": "Approved",
+      "REJECTED": "Rejected"
+    }
+  },
+  "payroll": {
+    "title": "Payroll",
+    "add": "Create Payroll Run",
+    "month": "Month",
+    "year": "Year",
+    "process": "Process",
+    "complete": "Complete",
+    "status": {
+      "DRAFT": "Draft",
+      "PROCESSING": "Processing",
+      "COMPLETED": "Completed"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark All Read",
+    "noNotifications": "No notifications",
+    "unread": "Unread"
+  },
+  "overtime": {
+    "title": "Overtime",
+    "request": "Request OT",
+    "clockIn": "Clock In",
+    "clockOut": "Clock Out",
+    "hours": "Hours",
+    "date": "Date",
+    "reason": "Reason",
+    "approve": "Approve",
+    "reject": "Reject",
+    "timesheet": "Timesheet"
+  },
+  "recruitment": {
+    "title": "Recruitment",
+    "addPosting": "Add Job Posting",
+    "jobTitle": "Job Title",
+    "location": "Location",
+    "salaryRange": "Salary Range",
+    "applicants": "Applicants",
+    "stage": {
+      "APPLIED": "Applied",
+      "SCREENING": "Screening",
+      "INTERVIEW": "Interview",
+      "OFFER": "Offer",
+      "HIRED": "Hired",
+      "REJECTED": "Rejected"
+    }
+  },
+  "training": {
+    "title": "Training",
+    "addCourse": "Add Course",
+    "courseTitle": "Course Title",
+    "instructor": "Instructor",
+    "capacity": "Capacity",
+    "enrollments": "Enrollments",
+    "enroll": "Enroll"
+  },
+  "goals": {
+    "title": "Goals (OKR)",
+    "add": "Add Goal",
+    "period": "Period",
+    "progress": "Progress",
+    "keyResults": "Key Results",
+    "target": "Target",
+    "current": "Current"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "add": "Add Announcement",
+    "content": "Content",
+    "priority": "Priority",
+    "pin": "Pin",
+    "archive": "Archive",
+    "priorities": {
+      "LOW": "Low",
+      "MEDIUM": "Medium",
+      "HIGH": "High",
+      "URGENT": "Urgent"
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "add": "Add Document",
+    "category": "Category",
+    "fileUrl": "File URL",
+    "expiryDate": "Expiry Date"
+  },
+  "benefits": {
+    "title": "Benefits",
+    "addPlan": "Add Benefit Plan",
+    "planName": "Plan Name",
+    "type": "Type",
+    "enroll": "Enroll",
+    "unenroll": "Unenroll"
+  },
+  "shifts": {
+    "title": "Shifts",
+    "add": "Add Shift",
+    "shiftName": "Shift Name",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "assign": "Assign Shift",
+    "schedule": "Schedule"
+  },
+  "auditLog": {
+    "title": "Audit Log",
+    "user": "User",
+    "action": "Action",
+    "entity": "Entity",
+    "timestamp": "Timestamp"
+  },
+  "surveys": {
+    "title": "Surveys",
+    "add": "Create Survey",
+    "active": "Active",
+    "results": "Results",
+    "questions": "questions",
+    "responses": "responses",
+    "submit": "Submit Response",
+    "answerPlaceholder": "Type your answer...",
+    "selectRating": "Select rating",
+    "noQuestions": "No questions",
+    "noResults": "No results yet",
+    "totalResponses": "Total Responses"
+  },
+  "performance": {
+    "title": "Performance Reviews",
+    "add": "Add Review",
+    "reviewer": "Reviewer",
+    "period": "Period",
+    "score": "Score",
+    "comments": "Comments"
+  },
+  "exitChecklists": {
+    "title": "Exit Checklists",
+    "generate": "Generate Checklist",
+    "task": "Task",
+    "completed": "Completed"
+  },
+  "jobHistories": {
+    "title": "Job Histories",
+    "add": "Add History",
+    "changeType": "Change Type",
+    "effectiveDate": "Effective Date"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "appearance": "Appearance",
+    "security": "Security",
+    "language": "Language",
+    "darkMode": "Dark Mode",
+    "changePassword": "Change Password",
+    "twoFactor": "Two-Factor Authentication",
+    "logout": "Sign Out"
+  },
+  "status": {
+    "PENDING": "Pending",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "DRAFT": "Draft",
+    "PROCESSING": "Processing",
+    "COMPLETED": "Completed",
+    "AVAILABLE": "Available",
+    "ASSIGNED": "Assigned",
+    "RETIRED": "Retired",
+    "OPEN": "Open",
+    "CLOSED": "Closed",
+    "HIRED": "Hired",
+    "ON_HOLD": "On Hold",
+    "ENROLLED": "Enrolled",
+    "APPLIED": "Applied",
+    "SCREENING": "Screening",
+    "INTERVIEW": "Interview",
+    "OFFER": "Offer",
+    "HIGH": "High",
+    "URGENT": "Urgent",
+    "NORMAL": "Normal",
+    "LOW": "Low",
+    "MEDIUM": "Medium"
+  },
+  "ess": {
+    "title": "My Portal",
+    "greeting": "Hello",
+    "myLeave": "My Leave Requests",
+    "myExpenses": "My Expense Claims",
+    "noLeave": "No leave history",
+    "noExpenses": "No expense history",
+    "viewAll": "View all",
+    "pendingLeave": "Pending Leave",
+    "pendingExpense": "Pending Expenses",
+    "approvedLeave": "Approved Leave",
+    "leaveSubmitted": "Leave request submitted",
+    "expenseSubmitted": "Expense claim submitted",
+    "expensePlaceholder": "e.g. Business trip to Bangkok"
+  },
+  "orgChart": {
+    "title": "Organization Chart",
+    "noData": "No organization data"
+  }
+}

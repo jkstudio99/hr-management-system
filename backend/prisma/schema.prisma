@@ -1,0 +1,622 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Enterprise HR Management System — Prisma Schema
+// ─────────────────────────────────────────────────────────────────────────────
+// This schema defines 32 models covering:
+//   • Identity & Access  : User, Role
+//   • Organization       : Department, JobTitle, Employee, JobHistory
+//   • Leave Management   : LeaveRequest
+//   • Asset Management   : Asset
+//   • Finance            : ExpenseClaim, PayrollRun, PayrollItem
+//   • Performance        : PerformanceReview
+//   • Off-boarding       : ExitChecklist
+//   • Notifications      : Notification
+//   • Surveys            : Survey, SurveyQuestion, SurveyResponse
+//   • Audit              : AuditLog
+//   • Overtime           : OvertimeRequest, TimesheetEntry
+//   • Recruitment        : JobPosting, Applicant
+//   • Training           : TrainingCourse, TrainingEnrollment
+//   • Documents          : Document
+//   • Benefits           : BenefitPlan, EmployeeBenefit
+//   • Scheduling         : Shift, ShiftAssignment
+//   • Goals              : Goal, KeyResult
+//   • Announcements      : Announcement
+// ─────────────────────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Identity & Access Control
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// System user account. Each user is assigned exactly one Role and may be
+/// linked to an Employee record for self-service (ESS) functionality.
+model User {
+  id           Int     @id @default(autoincrement())
+  username     String  @unique
+  passwordHash String
+  email        String  @unique
+  isActive     Boolean @default(true)
+
+  // Optional 1-to-1 link to an Employee record
+  employeeId Int?      @unique
+  employee   Employee? @relation(fields: [employeeId], references: [id])
+
+  // RBAC role assignment
+  roleId Int
+  role   Role @relation(fields: [roleId], references: [id])
+
+  // 2FA fields
+  twoFactorSecret    String?
+  isTwoFactorEnabled Boolean @default(false)
+
+  // Notifications
+  notifications Notification[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+/// Authorization role used for RBAC (e.g. Admin, HR, Employee).
+model Role {
+  id       Int    @id @default(autoincrement())
+  roleName String @unique
+  users    User[]
+
+  @@map("roles")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Organization Structure
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Organizational unit (e.g. Engineering, Finance, HR).
+model Department {
+  id             Int        @id @default(autoincrement())
+  departmentName String     @unique
+  employees      Employee[]
+
+  @@map("departments")
+}
+
+/// Job title / position (e.g. Software Engineer, HR Manager).
+model JobTitle {
+  id        Int        @id @default(autoincrement())
+  titleName String     @unique
+  employees Employee[]
+
+  @@map("job_titles")
+}
+
+/// Core employee record — the central entity of the HR system.
+/// All other modules reference employees for ownership / assignment.
+model Employee {
+  id        Int    @id @default(autoincrement())
+  idCard    String @unique
+  firstName String
+  lastName  String
+
+  departmentId Int
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  jobTitleId Int
+  jobTitle   JobTitle @relation(fields: [jobTitleId], references: [id])
+
+  hireDate   DateTime
+  baseSalary Decimal  @db.Decimal(18, 2)
+  isActive   Boolean  @default(true)
+
+  // Contract & document expiry fields
+  contractStartDate DateTime?
+  contractEndDate   DateTime?
+  idCardExpiry      DateTime?
+  workPermitExpiry  DateTime?
+
+  // Org chart — self-referencing manager
+  managerId    Int?
+  manager      Employee?  @relation("ManagerSubordinates", fields: [managerId], references: [id])
+  subordinates Employee[] @relation("ManagerSubordinates")
+
+  // Reverse relations
+  user                User?
+  leaveRequests       LeaveRequest[]
+  assets              Asset[]
+  expenseClaims       ExpenseClaim[]
+  performanceReviews  PerformanceReview[]  @relation("Reviewee")
+  exitChecklists      ExitChecklist[]
+  jobHistories        JobHistory[]
+  payrollItems        PayrollItem[]
+  overtimeRequests    OvertimeRequest[]
+  timesheetEntries    TimesheetEntry[]
+  trainingEnrollments TrainingEnrollment[]
+  documents           Document[]
+  employeeBenefits    EmployeeBenefit[]
+  shiftAssignments    ShiftAssignment[]
+  goals               Goal[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("employees")
+}
+
+/// Tracks employee position changes over time for audit purposes.
+model JobHistory {
+  id            Int      @id @default(autoincrement())
+  employeeId    Int
+  employee      Employee @relation(fields: [employeeId], references: [id])
+  oldTitleId    Int
+  newTitleId    Int
+  effectiveDate DateTime
+
+  @@map("job_histories")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Leave Management
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Employee leave/absence request with approval workflow.
+model LeaveRequest {
+  id         Int      @id @default(autoincrement())
+  employeeId Int
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  leaveType  String
+  startDate  DateTime
+  endDate    DateTime
+  status     String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  approverId Int?
+
+  @@map("leave_requests")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Asset Management
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Company asset (laptop, phone, badge, etc.) optionally assigned to an employee.
+model Asset {
+  id           Int       @id @default(autoincrement())
+  assetName    String
+  serialNumber String    @unique
+  employeeId   Int?
+  employee     Employee? @relation(fields: [employeeId], references: [id])
+  status       String    @default("AVAILABLE") // AVAILABLE | ASSIGNED | RETIRED
+
+  @@map("assets")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Finance — Expense Claims
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Employee expense / reimbursement claim with receipt tracking.
+model ExpenseClaim {
+  id         Int      @id @default(autoincrement())
+  employeeId Int
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  claimType  String
+  amount     Decimal  @db.Decimal(18, 2)
+  receiptUrl String?
+  status     String   @default("PENDING") // PENDING | APPROVED | REJECTED
+
+  @@map("expense_claims")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Performance Management
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Periodic performance review / appraisal for an employee.
+model PerformanceReview {
+  id         Int      @id @default(autoincrement())
+  reviewerId Int
+  revieweeId Int
+  reviewee   Employee @relation("Reviewee", fields: [revieweeId], references: [id])
+  period     String
+  score      Int
+  comments   String?
+
+  @@map("performance_reviews")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Off-boarding
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Checklist item for employee off-boarding / exit process.
+model ExitChecklist {
+  id          Int      @id @default(autoincrement())
+  employeeId  Int
+  employee    Employee @relation(fields: [employeeId], references: [id])
+  itemName    String
+  isCompleted Boolean  @default(false)
+  clearedById Int?
+
+  @@map("exit_checklists")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Notifications
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// System notification for alerts (contract expiry, leave approval, etc.)
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  message   String
+  type      String   @default("INFO") // INFO | WARNING | ALERT | SUCCESS
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Payroll
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Monthly payroll batch run.
+model PayrollRun {
+  id          Int           @id @default(autoincrement())
+  period      String        @unique // "2026-02"
+  status      String        @default("DRAFT") // DRAFT | PROCESSING | COMPLETED
+  totalAmount Decimal       @default(0) @db.Decimal(18, 2)
+  items       PayrollItem[]
+  processedBy Int?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("payroll_runs")
+}
+
+/// Individual payslip line item within a payroll run.
+model PayrollItem {
+  id           Int        @id @default(autoincrement())
+  payrollRunId Int
+  payrollRun   PayrollRun @relation(fields: [payrollRunId], references: [id], onDelete: Cascade)
+  employeeId   Int
+  employee     Employee   @relation(fields: [employeeId], references: [id])
+  baseSalary   Decimal    @db.Decimal(18, 2)
+  allowances   Decimal    @default(0) @db.Decimal(18, 2)
+  deductions   Decimal    @default(0) @db.Decimal(18, 2)
+  tax          Decimal    @default(0) @db.Decimal(18, 2)
+  sso          Decimal    @default(0) @db.Decimal(18, 2)
+  netPay       Decimal    @db.Decimal(18, 2)
+
+  @@unique([payrollRunId, employeeId])
+  @@map("payroll_items")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Pulse Surveys
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Anonymous employee pulse survey.
+model Survey {
+  id        Int              @id @default(autoincrement())
+  title     String
+  isActive  Boolean          @default(true)
+  startDate DateTime
+  endDate   DateTime
+  questions SurveyQuestion[]
+  createdAt DateTime         @default(now())
+
+  @@map("surveys")
+}
+
+/// Individual question within a survey.
+model SurveyQuestion {
+  id        Int              @id @default(autoincrement())
+  surveyId  Int
+  survey    Survey           @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  question  String
+  type      String           @default("RATING") // RATING | TEXT | MULTIPLE_CHOICE
+  sortOrder Int              @default(0)
+  responses SurveyResponse[]
+
+  @@map("survey_questions")
+}
+
+/// Anonymous survey response — no employeeId for privacy.
+model SurveyResponse {
+  id         Int            @id @default(autoincrement())
+  questionId Int
+  question   SurveyQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answer     String
+  createdAt  DateTime       @default(now())
+
+  @@map("survey_responses")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Audit Log
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Immutable audit trail — WHO did WHAT, WHEN.
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  username  String?
+  action    String // CREATE | UPDATE | DELETE | LOGIN | LOGOUT
+  entity    String // e.g. "Employee", "LeaveRequest"
+  entityId  Int?
+  oldValue  String?  @db.Text
+  newValue  String?  @db.Text
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Overtime & Timesheet
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Overtime work request with approval workflow.
+model OvertimeRequest {
+  id         Int      @id @default(autoincrement())
+  employeeId Int
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  date       DateTime
+  hours      Decimal  @db.Decimal(4, 1)
+  reason     String?
+  status     String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  approverId Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("overtime_requests")
+}
+
+/// Daily timesheet entry for clock-in / clock-out tracking.
+model TimesheetEntry {
+  id         Int       @id @default(autoincrement())
+  employeeId Int
+  employee   Employee  @relation(fields: [employeeId], references: [id])
+  date       DateTime
+  clockIn    DateTime?
+  clockOut   DateTime?
+  breakMins  Int       @default(0)
+  totalHours Decimal?  @db.Decimal(4, 1)
+  note       String?
+  createdAt  DateTime  @default(now())
+
+  @@unique([employeeId, date])
+  @@map("timesheet_entries")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Recruitment / ATS
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Open job posting / vacancy.
+model JobPosting {
+  id           Int         @id @default(autoincrement())
+  title        String
+  departmentId Int?
+  description  String      @db.Text
+  requirements String?     @db.Text
+  location     String?
+  salaryMin    Decimal?    @db.Decimal(18, 2)
+  salaryMax    Decimal?    @db.Decimal(18, 2)
+  status       String      @default("OPEN") // OPEN | CLOSED | ON_HOLD
+  applicants   Applicant[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@map("job_postings")
+}
+
+/// Job applicant / candidate tracking.
+model Applicant {
+  id           Int        @id @default(autoincrement())
+  jobPostingId Int
+  jobPosting   JobPosting @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
+  firstName    String
+  lastName     String
+  email        String
+  phone        String?
+  resumeUrl    String?
+  stage        String     @default("APPLIED") // APPLIED | SCREENING | INTERVIEW | OFFER | HIRED | REJECTED
+  notes        String?    @db.Text
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@map("applicants")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Training & Development
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Training course / program.
+model TrainingCourse {
+  id          Int                  @id @default(autoincrement())
+  title       String
+  description String?              @db.Text
+  instructor  String?
+  startDate   DateTime?
+  endDate     DateTime?
+  maxCapacity Int?
+  isActive    Boolean              @default(true)
+  enrollments TrainingEnrollment[]
+  createdAt   DateTime             @default(now())
+
+  @@map("training_courses")
+}
+
+/// Employee enrollment in a training course.
+model TrainingEnrollment {
+  id          Int            @id @default(autoincrement())
+  courseId    Int
+  course      TrainingCourse @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  employeeId  Int
+  employee    Employee       @relation(fields: [employeeId], references: [id])
+  status      String         @default("ENROLLED") // ENROLLED | COMPLETED | CANCELLED
+  score       Int?
+  completedAt DateTime?
+  createdAt   DateTime       @default(now())
+
+  @@unique([courseId, employeeId])
+  @@map("training_enrollments")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Document Management
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// HR document (contract, certificate, policy, etc.)
+model Document {
+  id         Int       @id @default(autoincrement())
+  employeeId Int?
+  employee   Employee? @relation(fields: [employeeId], references: [id])
+  title      String
+  category   String // CONTRACT | CERTIFICATE | POLICY | ID_CARD | OTHER
+  fileUrl    String
+  fileSize   Int?
+  mimeType   String?
+  uploadedBy Int?
+  expiryDate DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([employeeId])
+  @@index([category])
+  @@map("documents")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Benefits & Welfare
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Company benefit plan (health insurance, provident fund, etc.)
+model BenefitPlan {
+  id          Int               @id @default(autoincrement())
+  name        String            @unique
+  description String?           @db.Text
+  type        String // HEALTH | PROVIDENT_FUND | ALLOWANCE | INSURANCE | OTHER
+  isActive    Boolean           @default(true)
+  employees   EmployeeBenefit[]
+  createdAt   DateTime          @default(now())
+
+  @@map("benefit_plans")
+}
+
+/// Employee enrollment in a benefit plan.
+model EmployeeBenefit {
+  id         Int         @id @default(autoincrement())
+  employeeId Int
+  employee   Employee    @relation(fields: [employeeId], references: [id])
+  planId     Int
+  plan       BenefitPlan @relation(fields: [planId], references: [id])
+  startDate  DateTime
+  endDate    DateTime?
+  isActive   Boolean     @default(true)
+
+  @@unique([employeeId, planId])
+  @@map("employee_benefits")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Shift & Roster Scheduling
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Shift definition (e.g. Morning 08:00–16:00, Night 22:00–06:00).
+model Shift {
+  id          Int               @id @default(autoincrement())
+  name        String            @unique
+  startTime   String // "08:00"
+  endTime     String // "16:00"
+  color       String? // for calendar UI
+  isActive    Boolean           @default(true)
+  assignments ShiftAssignment[]
+
+  @@map("shifts")
+}
+
+/// Employee shift assignment for a specific date.
+model ShiftAssignment {
+  id         Int      @id @default(autoincrement())
+  shiftId    Int
+  shift      Shift    @relation(fields: [shiftId], references: [id])
+  employeeId Int
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  date       DateTime
+  note       String?
+
+  @@unique([employeeId, date])
+  @@map("shift_assignments")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// KPI & Goal Management (OKR)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Employee goal / objective.
+model Goal {
+  id          Int         @id @default(autoincrement())
+  employeeId  Int
+  employee    Employee    @relation(fields: [employeeId], references: [id])
+  title       String
+  description String?     @db.Text
+  period      String // "2026-Q1", "2026-H1"
+  status      String      @default("IN_PROGRESS") // IN_PROGRESS | COMPLETED | CANCELLED
+  progress    Int         @default(0) // 0–100
+  keyResults  KeyResult[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("goals")
+}
+
+/// Key result under a goal (OKR style).
+model KeyResult {
+  id           Int     @id @default(autoincrement())
+  goalId       Int
+  goal         Goal    @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  title        String
+  targetValue  Decimal @db.Decimal(18, 2)
+  currentValue Decimal @default(0) @db.Decimal(18, 2)
+  unit         String? // "件", "%", "฿"
+
+  @@map("key_results")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Announcements & Internal Communication
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Company-wide or targeted announcement.
+model Announcement {
+  id           Int       @id @default(autoincrement())
+  title        String
+  content      String    @db.Text
+  priority     String    @default("NORMAL") // LOW | NORMAL | HIGH | URGENT
+  targetRole   String? // null = all, or "HR", "EMPLOYEE", etc.
+  targetDeptId Int?
+  isPinned     Boolean   @default(false)
+  isArchived   Boolean   @default(false)
+  publishedBy  Int?
+  publishedAt  DateTime  @default(now())
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([isArchived, publishedAt])
+  @@map("announcements")
+}

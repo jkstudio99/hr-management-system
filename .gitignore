@@ -2,11 +2,17 @@
 .env
 .env.*
 node_modules/
+**/node_modules/
 
 # Nuxt
 .nuxt/
+frontend/.nuxt/
 .output/
+frontend/.output/
 dist/
+
+# Backend build
+backend/dist/
 
 # Logs
 npm-debug.log*
